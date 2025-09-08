@@ -1,0 +1,26 @@
+{
+  "name": "klunker/laravel-subscribe",
+  "description": "A simple package for managing email subscriptions.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "klunker",
+      "email": "klunker.roox@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Klunker\\LaravelSubscribe\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Klunker\\LaravelSubscribe\\SubscribeServiceProvider"
+      ]
+    }
+  }
+}
