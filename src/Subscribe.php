@@ -9,7 +9,12 @@ class Subscribe
 
     public function getToken(string $email): string
     {
-        return base64_encode($email);
+        return base64_encode($email . '|' . config('app.key'));
+    }
+
+    private function getEmail(string $token): string
+    {
+        return explode('|', base64_decode($token))[0];
     }
 
 
@@ -40,7 +45,7 @@ class Subscribe
      */
     public function getSubscriberByToken(string $token): ?Subscriber
     {
-        return Subscriber::query()->where('email', base64_decode($token))->first();
+        return Subscriber::query()->where('email', $this->getEmail($token))->first();
     }
 
 }

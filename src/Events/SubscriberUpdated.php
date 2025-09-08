@@ -1,6 +1,6 @@
 <?php
 
-namespace Klunker\LaravelSubscribe\Http\Controllers;
+namespace Klunker\LaravelSubscribe\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;

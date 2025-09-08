@@ -2,45 +2,43 @@
 
 namespace Klunker\LaravelSubscribe\Model;
 
+use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Klunker\LaravelSubscribe\Enums\SubscribeType;
 
 class Subscriber extends Model
 {
-    use softDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'email',
         'name',
-        'service',
-        'marketing',
+        'subscribe_on',
     ];
 
     protected $casts = [
         'email' => 'string',
         'name' => 'string',
-        'service' => 'boolean',
-        'marketing' => 'boolean',
+        'subscribe_on' => AsEnumCollection::class . ':' . SubscribeType::class,
     ];
 
-    protected static function booted(): void
-    {
-
-        static::updating(function (Subscriber $subscriber) {
-            if (
-                $subscriber->isDirty(['service', 'marketing'])
-                && $subscriber->service === false
-                && $subscriber->marketing === false
-            ) {
-                $subscriber->delete();
-                return false;
-            }
-            return true;
-        });
-    }
 
     public function getTable(): string
     {
         return config('subscribe.table_name', 'subscribers');
+    }
+
+
+    /**
+     * Check if the subscriber is subscribed to a specific type.
+     *
+     * @param SubscribeType $type
+     * @return bool
+     */
+    public function isSubscribedTo(SubscribeType $type): bool
+    {
+        return $this->subscribe_on && $this->subscribe_on->contains($type);
     }
 }

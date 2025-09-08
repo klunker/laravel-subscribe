@@ -4,7 +4,10 @@ namespace Klunker\LaravelSubscribe\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Klunker\LaravelSubscribe\Events\SubscriberCreated;
+use Klunker\LaravelSubscribe\Events\SubscriberDeleted;
+use Klunker\LaravelSubscribe\Events\SubscriberUpdated;
 use Klunker\LaravelSubscribe\Facades\Subscribe;
+use Klunker\LaravelSubscribe\Http\Requests\DeleteRequest;
 use Klunker\LaravelSubscribe\Http\Requests\StoreSubscriberRequest;
 use Klunker\LaravelSubscribe\Http\Requests\UnsubscribeRequest;
 use Klunker\LaravelSubscribe\Http\Requests\ViewSubscriberRequest;
@@ -15,58 +18,41 @@ class SubscriberController extends Controller
     public function view(ViewSubscriberRequest $request)
     {
         $subscriber = Subscribe::getSubscriber($request->validated('email'));
+        return response()->json([
+            'subscriber' => $subscriber
+        ]);
+    }
+
+    public function store(StoreSubscriberRequest $request)
+    {
+        $subscriber = Subscriber::withTrashed()
+            ->where('email', $request->validated('email'))
+            ->first();
+
         $wasRecentlyCreated = false;
 
         if ($subscriber) {
             if ($subscriber->trashed()) {
                 $subscriber->restore();
             }
-
             $subscriber->update($request->validated());
-
         } else {
-            $subscriber = Subscriber::create($request->validated('email'));
+            $subscriber = Subscriber::create($request->validated());
+            SubscriberCreated::dispatch($subscriber);
             $wasRecentlyCreated = true;
-        }
-
-        if ($wasRecentlyCreated) {
-            SubscriberCreated::dispatch($subscriber);
-        }
-
-        return response()->json([
-            'message' => $wasRecentlyCreated
-                ? 'Successfully subscribed'
-                : 'Successfully has been updated',
-            'subscriber' => $subscriber->refresh()
-        ], $wasRecentlyCreated ? 201 : 200);
-    }
-
-    public function store(StoreSubscriberRequest $request)
-    {
-
-        $subscriber = Subscriber::withTrashed()
-            ->where('email', $request->validated('email'))
-            ->first();
-
-
-        $wasRecentlyCreated = $subscriber->wasRecentlyCreated;
-        if ($wasRecentlyCreated) {
-            SubscriberCreated::dispatch($subscriber);
         }
 
         return response()->json([
             'message' => $wasRecentlyCreated ? 'Subscriber created' : 'Subscriber updated',
             'subscriber' => $subscriber
-        ], $wasRecentlyCreated ? 201 : 200); //201 Created, 200 OK
+        ], $wasRecentlyCreated ? 201 : 200);
     }
 
     public function unsubscribe(UnsubscribeRequest $request)
     {
         $subscriber = Subscribe::getSubscriberByToken($request->validated('token'));
-        $wasRecentlyUpdated = $subscriber->update([
-            'service' => $request->validated('service'),
-            'marketing' => $request->validated('marketing'),
-        ]);
+        $wasRecentlyUpdated = $subscriber->update($request->validated());
+
         if ($wasRecentlyUpdated) {
             SubscriberUpdated::dispatch($subscriber);
         }
@@ -77,7 +63,7 @@ class SubscriberController extends Controller
         ]);
     }
 
-    public function delete(UnsubscribeRequest $request)
+    public function delete(DeleteRequest $request)
     {
         $subscriber = Subscribe::getSubscriberByToken($request->validated('token'));
         if (!$subscriber) {

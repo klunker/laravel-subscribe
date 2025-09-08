@@ -10,8 +10,7 @@ return new class extends Migration {
             $table->id();
             $table->string('email');
             $table->string('name')->nullable();
-            $table->boolean('service')->default(true);
-            $table->boolean('marketing')->default(true);
+            $table->json('subscribe_on')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

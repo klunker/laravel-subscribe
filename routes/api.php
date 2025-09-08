@@ -18,11 +18,11 @@ Route::get('/subscribe/token', [SubscriberController::class, 'token'])
 Route::post('/subscribe', [SubscriberController::class, 'store'])
     ->name('subscribe.store');
 
-Route::patch('/unsubscribe/{token}', [SubscriberController::class, 'unsubscribe'])
+Route::patch('/unsubscribe', [SubscriberController::class, 'unsubscribe'])
     ->name('subscribe.unsubscribe_by_token')
     ->middleware('subscribed');
 
-Route::delete('/unsubscribe/{token}', [SubscriberController::class, 'delete'])
-    ->name('subscribe.unsubscribe_by_token')
+Route::delete('/unsubscribe', [SubscriberController::class, 'delete'])
+    ->name('subscribe.delete_by_token')
     ->middleware('subscribed');
 

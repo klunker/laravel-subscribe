@@ -52,6 +52,7 @@ class SubscribeServiceProvider extends ServiceProvider
         // Register the package migrations
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
+        $this->loadFactoriesFrom(__DIR__ . '/../database/factories');
         // Register the package views
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'subscribe');
 
