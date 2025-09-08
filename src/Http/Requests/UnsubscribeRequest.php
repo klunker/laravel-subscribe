@@ -4,7 +4,7 @@ namespace Klunker\LaravelSubscribe\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSubscriberRequest extends FormRequest
+class UnsubscribeRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -13,13 +13,10 @@ class StoreSubscriberRequest extends FormRequest
 
     public function rules(): array
     {
-        $tableName = config('subscribe.table_name', 'subscribers');
         return [
-            'email' => 'required|email|unique:' . $tableName . ',email',
-            'name' => 'sometimes|string|max:255',
+            'token' => 'required',
             'service' => 'sometimes|boolean',
             'marketing' => 'sometimes|boolean',
         ];
     }
-
 }

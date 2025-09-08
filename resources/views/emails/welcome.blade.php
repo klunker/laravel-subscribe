@@ -7,4 +7,10 @@
 
     Thanks,<br>
     {{ config('app.name') }}
+
+    @slot('footer')
+        @component('mail::footer')
+            If you no longer wish to receive these emails, you can [unsubscribe here]({{ $unsubscribeUrl }}).
+        @endcomponent
+    @endslot
 @endcomponent

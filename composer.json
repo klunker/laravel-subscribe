@@ -1,5 +1,6 @@
 {
   "name": "klunker/laravel-subscribe",
+  "version": "0.1.0",
   "description": "A simple package for managing email subscriptions.",
   "type": "library",
   "license": "MIT",
@@ -20,7 +21,10 @@
     "laravel": {
       "providers": [
         "Klunker\\LaravelSubscribe\\SubscribeServiceProvider"
-      ]
+      ],
+      "aliases": {
+        "Subscribe": "Klunker\\LaravelSubscribe\\Facades\\Subscribe"
+      }
     }
   }
 }

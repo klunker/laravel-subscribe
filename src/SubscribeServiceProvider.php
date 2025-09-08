@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Klunker\LaravelSubscribe\Events\SubscriberCreated;
+use Klunker\LaravelSubscribe\Http\Middleware\Subscribed;
 use Klunker\LaravelSubscribe\Listeners\SendWelcomeEmail;
 
 class SubscribeServiceProvider extends ServiceProvider
@@ -26,6 +27,15 @@ class SubscribeServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->singleton(Subscribe::class, function () {
+            return new \Klunker\LaravelSubscribe\Subscribe();
+        });
+
+        // Register with the string key for backward compatibility
+        $this->app->singleton('subscribe', function () {
+            return $this->app->make(Subscribe::class);
+        });
+
         $this->mergeConfigFrom(
             __DIR__ . '/../config/subscribe.php', 'subscribe'
         );
@@ -38,7 +48,7 @@ class SubscribeServiceProvider extends ServiceProvider
     {
         // Register the package routes with the corrected path
         $this->bootRoutes();
-        
+
         // Register the package migrations
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
@@ -47,6 +57,9 @@ class SubscribeServiceProvider extends ServiceProvider
 
         // Register event listeners
         $this->registerEventListeners();
+
+        $router = $this->app->make('router');
+        $router->aliasMiddleware('subscribed', Subscribed::class);
 
         // Register files for publishing
         if ($this->app->runningInConsole()) {

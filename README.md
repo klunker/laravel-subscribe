@@ -47,10 +47,10 @@ it.
 ### Step 2: Package Installation
 
 Now that Composer knows where to look, run the standard require command in the terminal.
-Specify version 1.0.0 or newer.
+Specify version 0.1.0 or newer.
 
 ```Shell Script
-composer require klunker/laravel-subscribe:"^1.0.0"
+composer require klunker/laravel-subscribe:"^0.1.0"
 ```
 
 Composer will connect to your GitHub repository, find the 1.0.0 tag, download the package code,

@@ -23,6 +23,22 @@ class Subscriber extends Model
         'marketing' => 'boolean',
     ];
 
+    protected static function booted(): void
+    {
+
+        static::updating(function (Subscriber $subscriber) {
+            if (
+                $subscriber->isDirty(['service', 'marketing'])
+                && $subscriber->service === false
+                && $subscriber->marketing === false
+            ) {
+                $subscriber->delete();
+                return false;
+            }
+            return true;
+        });
+    }
+
     public function getTable(): string
     {
         return config('subscribe.table_name', 'subscribers');

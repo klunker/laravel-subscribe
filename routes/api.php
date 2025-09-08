@@ -9,6 +9,20 @@ use Klunker\LaravelSubscribe\Http\Controllers\SubscriberController;
 |--------------------------------------------------------------------------
 */
 
-// The name is now just 'subscribe.store' because 'api.' is added by the group
+Route::get('/subscribe/view', [SubscriberController::class, 'view'])
+    ->name('subscribe.view');
+
+Route::get('/subscribe/token', [SubscriberController::class, 'token'])
+    ->name('subscribe.token');
+
 Route::post('/subscribe', [SubscriberController::class, 'store'])
     ->name('subscribe.store');
+
+Route::patch('/unsubscribe/{token}', [SubscriberController::class, 'unsubscribe'])
+    ->name('subscribe.unsubscribe_by_token')
+    ->middleware('subscribed');
+
+Route::delete('/unsubscribe/{token}', [SubscriberController::class, 'delete'])
+    ->name('subscribe.unsubscribe_by_token')
+    ->middleware('subscribed');
+
