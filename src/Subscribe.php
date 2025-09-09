@@ -9,6 +9,10 @@ use Klunker\LaravelSubscribe\Model\Subscriber;
 
 class Subscribe
 {
+    public static function getChannels(): array
+    {
+        return config('subscribe.allowed_channels', []);
+    }
 
     /**
      * Get token by email

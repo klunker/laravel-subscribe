@@ -79,4 +79,12 @@ class SubscriberController extends Controller
         ]);
     }
 
+    public function channels()
+    {
+        return response()->json([
+            'channels' => Subscribe::getChannels()
+        ]);
+
+    }
+
 }

@@ -24,7 +24,9 @@ trait hasNewsletterSubscribe
      */
     public function subscribeTo(array $types): Subscriber
     {
-        return SubscriptionManager::subscribe($this->email, $this->name, $types);
+        $allowedKeys = array_keys(config('subscribe.allowed_types', []));
+        $filteredTypes = array_intersect($types, $allowedKeys);
+        return SubscriptionManager::subscribe($this->email, $this->name, $filteredTypes);
     }
 
     /**
@@ -41,7 +43,7 @@ trait hasNewsletterSubscribe
      * @param SubscribeType $type
      * @return bool
      */
-    public function isSubscribedTo(SubscribeType $type): bool
+    public function isSubscribedTo(string $type): bool
     {
         return $this->subscriber && $this->subscriber->isSubscribedTo($type);
     }

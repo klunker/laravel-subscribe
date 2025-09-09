@@ -8,6 +8,8 @@ use Klunker\LaravelSubscribe\Http\Controllers\SubscriberController;
 | API Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/subscribe/channels', [SubscriberController::class, 'channels'])
+    ->name('subscribe.channels');
 
 Route::get('/subscribe/view', [SubscriberController::class, 'view'])
     ->name('subscribe.view');

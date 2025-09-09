@@ -87,4 +87,71 @@ Allows you to change, for example, the HTML/text of the welcome email.
 php artisan vendor:publish --provider="Klunker\LaravelSubscribe\SubscribeServiceProvider" --tag="views"
 ```
 
-The templates will appear in `resources/views/vendor/subscribe`.
+The templates will appear in `resources/views/vendor/subscribe`
+
+### Step 4: Using the package
+
+#### 1. Using the facade and traits
+
+A facade and traits are provided to make it easy to subscribe and unsubscribe users from broadcast channels.
+
+```php
+<?php
+
+namespace App\Models;
+
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Klunker\LaravelSubscribe\Traits\HasNewsletterSubscribe; // 1. Import the trait
+
+class User extends Authenticatable
+{
+    use HasFactory, Notifiable, HasNewsletterSubscribe; // 2. Add the trait here
+
+    // ... other code of model
+}
+```
+
+Now your User model has superpowers. You can use them anywhere in your application (in controllers, middleware,
+commands).
+
+```php
+use App\Models\User;
+use Klunker\LaravelSubscribe\Enums\SubscribeType;
+
+// Find the user
+$user = User::find(1);
+
+// Subscribe the user to service and marketing broadcast channels
+// You can use any string that is defined in the config file
+// or create your own Enum class to store the channels defined in the config file
+$user->subscribeTo([
+    'service', 'marketing'
+]);
+
+
+if ($user->isSubscribedTo('marketing')) {
+    // The user is subscribed to marketing channel
+}
+if ($user->isSubscribedTo('service')) {
+    // Yes, subscribed on service channel
+}
+
+// Unsubscribe the user from all (soft delete)
+$user->unsubscribeFromAll();
+
+
+// You can also get the subscriber model directly
+$subscriberModel = $user->subscriber;
+```
+
+#### 2. Using the event system
+
+Available events:
+
+- `SubscriberCreated(Subscriber $subscriber)`
+- `SubscriberUpdated(Subscriber $subscriber)`
+- `SubscriberDeleted(string $email)`
+
+
+

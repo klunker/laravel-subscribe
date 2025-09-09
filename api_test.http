@@ -1,0 +1,58 @@
+### GET broadcast channels
+GET https://localhost/api/subscribe/channels
+Content-Type: application/json
+Accept: application/json
+
+### GET request to subscribe
+POST https://localhost/api/subscribe
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "john.doe@example.com",
+  "subscribe_on": [
+    "service",
+    "marketing"
+  ]
+}
+
+### GET subscriber by email
+GET https://localhost/api/subscribe/view
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "john.doe@example.com"
+}
+
+### GET subscriber token by email
+GET https://localhost/api/subscribe/token
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "john.doe@example.com"
+}
+
+### PATCH request to update subscriber
+PATCH https://localhost/api/unsubscribe
+Content-Type: application/json
+Accept: application/json
+
+{
+  "token": "am9obi5kb2VAZXhhbXBsZS5jb218YmFzZTY0OjZHSDBlL1RMbU1wOVpzTjdCVW9yLzNBY3MwUllpZzVUaXZndXYxekpvZlE9",
+  "subscribe_on": [
+    "service",
+    "marketing",
+    "promotions"
+  ]
+}
+
+### DELETE request to update subscriber
+DELETE https://localhost/api/unsubscribe
+Content-Type: application/json
+Accept: application/json
+
+{
+  "token": "am9obi5kb2VAZXhhbXBsZS5jb218YmFzZTY0OjZHSDBlL1RMbU1wOVpzTjdCVW9yLzNBY3MwUllpZzVUaXZndXYxekpvZlE9"
+}

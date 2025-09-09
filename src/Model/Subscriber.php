@@ -2,11 +2,9 @@
 
 namespace Klunker\LaravelSubscribe\Model;
 
-use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Klunker\LaravelSubscribe\Enums\SubscribeType;
 
 class Subscriber extends Model
 {
@@ -21,7 +19,7 @@ class Subscriber extends Model
     protected $casts = [
         'email' => 'string',
         'name' => 'string',
-        'subscribe_on' => AsEnumCollection::class . ':' . SubscribeType::class,
+        'subscribe_on' => 'json',
     ];
 
 
@@ -32,13 +30,13 @@ class Subscriber extends Model
 
 
     /**
-     * Check if the subscriber is subscribed to a specific type.
+     * Check if the subscriber is subscribed to a specific broadcast channel.
      *
-     * @param SubscribeType $type
+     * @param string $type
      * @return bool
      */
-    public function isSubscribedTo(SubscribeType $type): bool
+    public function isSubscribedTo(string $type): bool
     {
-        return $this->subscribe_on && $this->subscribe_on->contains($type);
+        return in_array($type, $this->subscribe_on ?? []);
     }
 }

@@ -18,4 +18,19 @@ return [
     */
     'table_name' => 'subscribers',
 
+    /*
+     |--------------------------------------------------------------------------
+     | Allowed Subscribe Broadcast Channels
+     |--------------------------------------------------------------------------
+     |
+     | This array defines all valid subscribe broadcast channels. The array key is the
+     | unique identifier used in the database, and the value is a human-readable
+     | description.
+     |
+    */
+    'allowed_channels' => [
+        'service' => 'Service notifications and account updates.',
+        'marketing' => 'Promotional materials and special offers.',
+        'promotions' => 'Weekly digest of new articles.',
+    ],
 ];
