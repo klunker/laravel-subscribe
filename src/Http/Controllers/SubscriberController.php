@@ -25,41 +25,32 @@ class SubscriberController extends Controller
 
     public function store(StoreSubscriberRequest $request)
     {
-        $subscriber = Subscriber::withTrashed()
-            ->where('email', $request->validated('email'))
-            ->first();
+        $subscriber = Subscribe::subscribe(
+            $request->validated('email'),
+            $request->validated('name'),
+            $request->validated('subscribe_on')
+        );
 
-        $wasRecentlyCreated = false;
-
-        if ($subscriber) {
-            if ($subscriber->trashed()) {
-                $subscriber->restore();
-            }
-            $subscriber->update($request->validated());
-        } else {
-            $subscriber = Subscriber::create($request->validated());
-            SubscriberCreated::dispatch($subscriber);
-            $wasRecentlyCreated = true;
-        }
+        $wasRecentlyCreated = $subscriber->wasRecentlyCreated;
 
         return response()->json([
             'message' => $wasRecentlyCreated ? 'Subscriber created' : 'Subscriber updated',
-            'subscriber' => $subscriber
+            'subscriber' => $subscriber->refresh()
         ], $wasRecentlyCreated ? 201 : 200);
     }
 
     public function unsubscribe(UnsubscribeRequest $request)
     {
         $subscriber = Subscribe::getSubscriberByToken($request->validated('token'));
-        $wasRecentlyUpdated = $subscriber->update($request->validated());
-
-        if ($wasRecentlyUpdated) {
-            SubscriberUpdated::dispatch($subscriber);
-        }
+        $subscriber = Subscribe::updateSubscriber(
+            $subscriber,
+            $request->validated('name'),
+            $request->validated('subscribe_on')
+        );
 
         return response()->json([
             'message' => 'Subscriber updated',
-            'subscriber' => $subscriber
+            'subscriber' => $subscriber->refresh()
         ]);
     }
 
@@ -71,13 +62,11 @@ class SubscriberController extends Controller
                 'message' => 'Subscriber not found',
             ], 404);
         }
-        $email = $subscriber->email;
-        $wasDeleted = $subscriber->delete();
-        if ($wasDeleted) {
-            SubscriberDeleted::dispatch($email);
-        }
+        $isDeleted = Subscribe::deleteSubscriber($subscriber);
         return response()->json([
-            'message' => 'Subscriber deleted',
+            'message' => $isDeleted
+                ? 'Subscriber deleted'
+                : 'Subscriber not deleted',
         ]);
 
     }
