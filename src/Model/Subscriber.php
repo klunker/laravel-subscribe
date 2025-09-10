@@ -10,6 +10,11 @@ class Subscriber extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $hidden = [
+        'id',
+        'deleted_at',
+    ];
+
     protected $fillable = [
         'email',
         'name',

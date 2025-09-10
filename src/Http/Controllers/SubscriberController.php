@@ -2,6 +2,7 @@
 
 namespace Klunker\LaravelSubscribe\Http\Controllers;
 
+use Klunker\LaravelSubscribe\Http\Resources\SubscriberResource;
 use Throwable;
 use Illuminate\Routing\Controller;
 use Klunker\LaravelSubscribe\Facades\Subscribe;
@@ -17,7 +18,7 @@ class SubscriberController extends Controller
         try {
             $subscriber = Subscribe::getSubscriber($request->validated('email'));
             return response()->json([
-                'subscriber' => $subscriber
+                'subscriber' => SubscriberResource::make($subscriber)
             ]);
         } catch (Throwable $e) {
             return response()->json([
@@ -40,7 +41,7 @@ class SubscriberController extends Controller
 
             return response()->json([
                 'message' => $wasRecentlyCreated ? 'Subscriber created' : 'Subscriber updated',
-                'subscriber' => $subscriber->refresh()
+                'subscriber' => SubscriberResource::make($subscriber->refresh())
             ], $wasRecentlyCreated ? 201 : 200);
         } catch (Throwable $e) {
             return response()->json([
@@ -62,7 +63,7 @@ class SubscriberController extends Controller
 
             return response()->json([
                 'message' => 'Subscriber updated',
-                'subscriber' => $subscriber->refresh()
+                'subscriber' => SubscriberResource::make($subscriber->refresh())
             ]);
         } catch (Throwable $e) {
             return response()->json([
