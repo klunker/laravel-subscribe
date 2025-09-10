@@ -32,7 +32,35 @@ return [
 
     'send_welcome_email' => false,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Subject of the welcome email
+    |--------------------------------------------------------------------------
+    |
+    | Here you can specify a subject of the welcome email.
+    |
+    | Default: Welcome to our service!
+    |
+    */
+
     'welcome_email_subject' => 'Welcome to our service!',
+    /*
+    |--------------------------------------------------------------------------
+    | Markdown template of the welcome email
+    |--------------------------------------------------------------------------
+    |
+    | Here you can specify a markdown template of the welcome email.
+    |
+    | Default: subscribe::emails.welcome
+    |
+    | You can edit the default template:
+    | run command:
+    |
+    |    php artisan vendor:publish --provider="Klunker\LaravelSubscribe\SubscribeServiceProvider" --tag="views"
+    |
+    | and edit the template in resources/views/vendor/subscribe/emails/welcome.blade.php
+    |
+    */
     'welcome_markdown_template' => 'subscribe::emails.welcome',
 
     /*
