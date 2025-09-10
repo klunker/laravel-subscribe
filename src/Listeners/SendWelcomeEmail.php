@@ -11,7 +11,7 @@ class SendWelcomeEmail
     /**
      * Handle the event.
      *
-     * @param \Klunker\LaravelSubscribe\Events\SubscriberCreated $event
+     * @param SubscriberCreated $event
      * @return void
      */
     public function handle(SubscriberCreated $event)
@@ -21,6 +21,9 @@ class SendWelcomeEmail
         logger('New subscriber registered, should send welcome email to: ' . $event->subscriber->email);
 
         // The actual mail sending logic will look like this:
-        // Mail::to($event->subscriber->email)->send(new WelcomeEmail($event->subscriber));
+        if (config('subscribe.send_welcome_email', false)) {
+            Mail::to($event->subscriber->email)->send(new WelcomeEmail($event->subscriber));
+        }
+
     }
 }

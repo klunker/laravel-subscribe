@@ -28,7 +28,7 @@ class WelcomeEmail extends Mailable
      */
     public function build(): static
     {
-        return $this->subject('Welcome to our Newsletter!')
-            ->markdown('subscribe::emails.welcome');
+        return $this->subject(config('subscribe.welcome_email_subject'))
+            ->markdown(config('subscribe.welcome_markdown_template'));
     }
 }

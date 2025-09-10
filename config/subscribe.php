@@ -19,6 +19,23 @@ return [
     'table_name' => 'subscribers',
 
     /*
+    |--------------------------------------------------------------------------
+    | Send welcome email
+    |--------------------------------------------------------------------------
+    |
+    | Here you can specify if the package should send a welcome email to the
+    | subscriber when they register.
+    |
+    | Default: false
+    |
+    */
+
+    'send_welcome_email' => false,
+
+    'welcome_email_subject' => 'Welcome to our service!',
+    'welcome_markdown_template' => 'subscribe::emails.welcome',
+
+    /*
      |--------------------------------------------------------------------------
      | Allowed Subscribe Broadcast Channels
      |--------------------------------------------------------------------------
@@ -33,4 +50,5 @@ return [
         'marketing' => 'Promotional materials and special offers.',
         'promotions' => 'Weekly digest of new articles.',
     ],
+
 ];
