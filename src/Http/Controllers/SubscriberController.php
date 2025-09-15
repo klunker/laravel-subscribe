@@ -5,11 +5,12 @@ namespace Klunker\LaravelSubscribe\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Klunker\LaravelSubscribe\Http\Requests\UnsubscribePageRequest;
+use Klunker\LaravelSubscribe\Http\Requests\UpdateSubscriberRequest;
 use Klunker\LaravelSubscribe\Http\Resources\SubscriberResource;
 use Throwable;
 use Illuminate\Routing\Controller;
 use Klunker\LaravelSubscribe\Facades\Subscribe;
-use Klunker\LaravelSubscribe\Http\Requests\DeleteRequest;
+use Klunker\LaravelSubscribe\Http\Requests\DeleteSubscriberRequest;
 use Klunker\LaravelSubscribe\Http\Requests\StoreSubscriberRequest;
 use Klunker\LaravelSubscribe\Http\Requests\UnsubscribeRequest;
 use Klunker\LaravelSubscribe\Http\Requests\ViewSubscriberRequest;
@@ -67,7 +68,7 @@ class SubscriberController extends Controller
         ]);
     }
 
-    public function update(UnsubscribeRequest $request)
+    public function update(UpdateSubscriberRequest $request)
     {
         Log::info('Subscriber updated', $request->validated());
         try {
@@ -92,7 +93,7 @@ class SubscriberController extends Controller
         }
     }
 
-    public function delete(DeleteRequest $request)
+    public function delete(DeleteSubscriberRequest $request)
     {
         try {
             $subscriber = Subscribe::getSubscriberByToken($request->validated('token'));
