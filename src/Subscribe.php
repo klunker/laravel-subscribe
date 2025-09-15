@@ -2,6 +2,7 @@
 
 namespace Klunker\LaravelSubscribe;
 
+use Illuminate\Support\Facades\Log;
 use Klunker\LaravelSubscribe\Events\SubscriberCreated;
 use Klunker\LaravelSubscribe\Events\SubscriberDeleted;
 use Klunker\LaravelSubscribe\Events\SubscriberUpdated;
@@ -31,6 +32,10 @@ class Subscribe
      */
     private function getEmail(string $token): string
     {
+        Log::info('Subscribe get email ', [
+            'token' => $token,
+            'encoded' => base64_decode($token),
+        ]);
         return explode('|', base64_decode($token))[0];
     }
 
@@ -52,7 +57,9 @@ class Subscribe
      */
     public function getUnsubscribeUrl(Subscriber $subscriber): string
     {
-        return route('api.subscribe.unsubscribe_by_token', $this->getToken($subscriber->email));
+        return route('web.subscribe.unsubscribe', [
+            'token' => $this->getToken($subscriber->email)
+        ]);
     }
 
     /**

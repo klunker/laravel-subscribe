@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'send_welcome_email' => false,
+    'send_welcome_email' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -78,5 +78,20 @@ return [
         'marketing' => 'Promotional materials and special offers.',
         'promotions' => 'Weekly digest of new articles.',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Unsubscribe page
+    |--------------------------------------------------------------------------
+    |
+    | Here you can specify a route and a view for the unsubscribe page.
+    |
+    | Default view: subscribe::unsubscribe_page
+    |
+    */
+    'unsubscribe' => [
+        'route' => 'subscribe.unsubscribe',
+        'view' => 'subscribe::unsubscribe_page',
+    ]
 
 ];

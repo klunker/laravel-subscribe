@@ -20,8 +20,8 @@ Route::get('/subscribe/token', [SubscriberController::class, 'token'])
 Route::post('/subscribe', [SubscriberController::class, 'store'])
     ->name('subscribe.store');
 
-Route::patch('/unsubscribe', [SubscriberController::class, 'unsubscribe'])
-    ->name('subscribe.unsubscribe_by_token')
+Route::patch('/subscribe', [SubscriberController::class, 'update'])
+    ->name('subscribe.update')
     ->middleware('subscribed');
 
 Route::delete('/unsubscribe', [SubscriberController::class, 'delete'])

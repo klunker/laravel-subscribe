@@ -50,7 +50,7 @@ Now that Composer knows where to look, run the standard require command in the t
 Specify version 0.1.0 or newer.
 
 ```Shell Script
-composer require klunker/laravel-subscribe:"^0.1.0"
+composer require klunker/laravel-subscribe:"^0.2.7"
 ```
 
 Composer will connect to your GitHub repository, find the 1.0.0 tag, download the package code,

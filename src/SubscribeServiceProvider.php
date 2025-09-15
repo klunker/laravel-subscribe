@@ -85,6 +85,11 @@ class SubscribeServiceProvider extends ServiceProvider
             ->group(function () {
                 $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
             });
+        Route::name('web.')
+            ->prefix('subscribe')
+            ->group(function () {
+                $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+            });
     }
 
     /**

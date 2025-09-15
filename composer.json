@@ -1,33 +1,33 @@
 {
-  "name": "klunker/laravel-subscribe",
-  "version": "0.2.7",
-  "description": "A simple package for managing email subscriptions.",
-  "type": "library",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "klunker",
-      "email": "klunker.roox@gmail.com"
+    "name": "klunker/laravel-subscribe",
+    "version": "0.2.8",
+    "description": "A simple package for managing email subscriptions.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "klunker",
+            "email": "klunker.roox@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Klunker\\LaravelSubscribe\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Klunker\\LaravelSubscribe\\SubscribeServiceProvider"
+            ],
+            "aliases": {
+                "Subscribe": "Klunker\\LaravelSubscribe\\Facades\\Subscribe"
+            }
+        }
     }
-  ],
-  "minimum-stability": "dev",
-  "require": {
-    "php": "^8.2",
-    "laravel/framework": "^11.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Klunker\\LaravelSubscribe\\": "src/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Klunker\\LaravelSubscribe\\SubscribeServiceProvider"
-      ],
-      "aliases": {
-        "Subscribe": "Klunker\\LaravelSubscribe\\Facades\\Subscribe"
-      }
-    }
-  }
 }

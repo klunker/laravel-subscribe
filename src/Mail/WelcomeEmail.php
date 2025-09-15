@@ -13,12 +13,12 @@ class WelcomeEmail extends Mailable
     use Queueable, SerializesModels;
 
     public Subscriber $subscriber;
-    public string $unsubscribeUrl;
+    public string $unsubscribe_token;
 
     public function __construct(Subscriber $subscriber)
     {
         $this->subscriber = $subscriber;
-        $this->unsubscribeUrl = Subscribe::getUnsubscribeUrl($subscriber);
+        $this->unsubscribe_token = Subscribe::getUnsubscribeUrl($subscriber);
     }
 
     /**

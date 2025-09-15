@@ -9,11 +9,11 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "john.doe@example.com",
-  "subscribe_on": [
-    "service",
-    "marketing"
-  ]
+    "email": "john.doe@example.com",
+    "subscribe_on": [
+        "service",
+        "marketing"
+    ]
 }
 
 ### GET subscriber by email
@@ -22,7 +22,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "john.doe@example.com"
+    "email": "john.doe@example.com"
 }
 
 ### GET subscriber token by email
@@ -31,21 +31,21 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "john.doe@example.com"
+    "email": "john.doe@example.com"
 }
 
 ### PATCH request to update subscriber
-PATCH https://localhost/api/unsubscribe
+PATCH https://localhost/api/subscribe
 Content-Type: application/json
 Accept: application/json
 
 {
-  "token": "am9obi5kb2VAZXhhbXBsZS5jb218YmFzZTY0OjZHSDBlL1RMbU1wOVpzTjdCVW9yLzNBY3MwUllpZzVUaXZndXYxekpvZlE9",
-  "subscribe_on": [
-    "service",
-    "marketing",
-    "promotions"
-  ]
+    "token": "am9obi5kb2VAZXhhbXBsZS5jb218YmFzZTY0OjZHSDBlL1RMbU1wOVpzTjdCVW9yLzNBY3MwUllpZzVUaXZndXYxekpvZlE9",
+    "subscribe_on": [
+        "service",
+        "marketing",
+        "promotions"
+    ]
 }
 
 ### DELETE request to update subscriber
@@ -54,5 +54,5 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "token": "am9obi5kb2VAZXhhbXBsZS5jb218YmFzZTY0OjZHSDBlL1RMbU1wOVpzTjdCVW9yLzNBY3MwUllpZzVUaXZndXYxekpvZlE9"
+    "token": "am9obi5kb2VAZXhhbXBsZS5jb218YmFzZTY0OjZHSDBlL1RMbU1wOVpzTjdCVW9yLzNBY3MwUllpZzVUaXZndXYxekpvZlE9"
 }

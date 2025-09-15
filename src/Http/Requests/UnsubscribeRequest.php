@@ -18,8 +18,8 @@ class UnsubscribeRequest extends FormRequest
     {
         return [
             'token' => 'required',
-            'subscribe_on' => 'required|array',
-            'subscribe_on.*' => ['required', new ValidSubscribeBroadcastChannel()],
+            'subscribe_on' => 'sometimes|array',
+            'subscribe_on.*' => ['sometimes', new ValidSubscribeBroadcastChannel()],
         ];
     }
 }
