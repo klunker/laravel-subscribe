@@ -5,7 +5,7 @@
 
     You'll be the first to know about new updates, articles, and special offers.
 
-    Thanks,<br>
+    Thanks,
     {{ config('app.name') }}
 
 
