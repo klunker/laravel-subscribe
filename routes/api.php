@@ -24,7 +24,7 @@ Route::patch('/subscribe', [SubscriberController::class, 'update'])
     ->name('subscribe.update')
     ->middleware('subscribed');
 
-Route::delete('/unsubscribe', [SubscriberController::class, 'delete'])
+Route::delete('/subscribe', [SubscriberController::class, 'delete'])
     ->name('subscribe.delete_by_token')
     ->middleware('subscribed');
 
