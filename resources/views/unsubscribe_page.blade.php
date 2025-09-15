@@ -1515,8 +1515,8 @@
                                 Choose which emails you'd like to receive
                             </p>
                         </summary>
-                        <div class="mt-2 pl-6">
-                            <ul class="flex flex-col gap-3">
+                        <div class="mt-2 pl-3  bg-[#f5f5f5] dark:bg-[#353535] rounded-lg">
+                            <ul class="flex flex-col gap-3 p-4">
                                 @foreach(\Klunker\LaravelSubscribe\Facades\Subscribe::getChannels() as $key => $channel)
                                     <li>
                                         <label class="flex flex-col items-start gap-2">
@@ -1535,7 +1535,7 @@
                     </details>
 
                     <ul class="flex flex-col my-4  bg-[#f5f5f5] dark:bg-[#161615] rounded-lg p-4 gap-3">
-                        <li>
+                        <li class="bg-[#f5f5f5] dark:bg-[#353535] rounded-lg p-4">
                             <label class="flex flex-col items-start gap-0">
                                 <p class="cursor-pointer text-[16px] leading-[20px] text-base font-medium">
                                     <input type="checkbox" name="subscribe_all" class="form-checkbox me-2">
@@ -1551,7 +1551,7 @@
                     <ul class="flex gap-3 text-sm leading-normal">
                         <li>
                             <input type="submit" name="unsubscribe" value="Unsubscribe"
-                                   class="cursor-pointer inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal"
+                                   class="cursor-pointer inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] dark:bg-[#4c4c4c] rounded-sm border border-black text-white text-sm leading-normal"
                             />
                         </li>
                     </ul>
